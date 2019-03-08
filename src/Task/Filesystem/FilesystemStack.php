@@ -33,6 +33,7 @@ use Robo\Common\BuilderAwareTrait;
  * @method $this chmod(string|array|\Traversable $file, int $permissions, int $umask = 0000, bool $recursive = false)
  * @method $this chgrp(string|array|\Traversable $file, string $group, bool $recursive = false)
  * @method $this chown(string|array|\Traversable $file, string $user, bool $recursive = false)
+ * @method $this exists(string|iterable $files)
  * @method $this remove(string|array|\Traversable $file)
  * @method $this rename(string $from, string $to, bool $force = false)
  * @method $this symlink(string $from, string $to, bool $copyOnWindows = false)
@@ -99,6 +100,16 @@ class FilesystemStack extends StackBasedTask implements BuilderAwareInterface
     protected function _chown($file, $user, $recursive = null)
     {
         $this->fs->chown($file, $user, $recursive);
+    }
+
+    /**
+     * @param string|iterable $files
+     *
+     * @return bool
+     */
+    protected function _exists($files)
+    {
+      $this->fs->exists($files);
     }
 
     /**
